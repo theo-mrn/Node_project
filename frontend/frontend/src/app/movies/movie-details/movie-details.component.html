@@ -1,0 +1,69 @@
+<div class="movie-details">
+  <div class="movie-details">
+    <h2>{{ movie?.series_title }}</h2>
+    <p><strong>Year:</strong> {{ movie?.released_year }}</p>
+    <p><strong>Genre:</strong> {{ movie?.genre }}</p>
+    <p><strong>Director:</strong> {{ movie?.director }}</p>
+    <!-- Autres détails -->
+  
+    <!-- Bouton pour supprimer le film -->
+    <button (click)="deleteMovie()" class="delete-button">Delete Movie</button>
+  </div>
+
+
+  <h2>Edit Movie Details</h2>
+
+  <label for="series_title">Title:</label>
+  <input
+    id="series_title"
+    [value]="movie.series_title"
+    (input)="updateField('series_title', $event)"
+  />
+
+  <label for="released_year">Year:</label>
+  <input
+    id="released_year"
+    type="number"
+    [value]="movie.released_year"
+    (input)="updateField('released_year', $event)"
+  />
+
+  <label for="genre">Genre:</label>
+  <input
+    id="genre"
+    [value]="movie.genre"
+    (input)="updateField('genre', $event)"
+  />
+
+  <label for="director">Director:</label>
+  <input
+    id="director"
+    [value]="movie.director"
+    (input)="updateField('director', $event)"
+  />
+
+  <label for="imdb_rating">IMDb Rating:</label>
+  <input
+    id="imdb_rating"
+    type="number"
+    [value]="movie.imdb_rating"
+    (input)="updateField('imdb_rating', $event)"
+  />
+
+  <label for="gross">Gross:</label>
+  <input
+    id="gross"
+    type="number"
+    [value]="movie.gross"
+    (input)="updateField('gross', $event)"
+  />
+
+  <label for="overview">Overview:</label>
+  <textarea
+    id="overview"
+    [value]="movie.overview"
+    (input)="updateField('overview', $event)"
+  ></textarea>
+
+  <button (click)="saveChanges()">Save Changes</button>
+</div>

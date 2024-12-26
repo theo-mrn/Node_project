@@ -1,0 +1,117 @@
+<div class="add-movie">
+    <h2>Add New Movie</h2>
+  
+    <label for="series_title">Title:</label>
+    <input
+      id="series_title"
+      placeholder="Enter movie title"
+      (input)="updateField('series_title', $event)"
+    />
+  
+    <label for="released_year">Year:</label>
+    <input
+      id="released_year"
+      type="number"
+      placeholder="Enter release year"
+      (input)="updateField('released_year', $event)"
+    />
+  
+    <label for="certificate">Certificate:</label>
+    <input
+      id="certificate"
+      placeholder="Enter certificate"
+      (input)="updateField('certificate', $event)"
+    />
+  
+    <label for="runtime">Runtime:</label>
+    <input
+      id="runtime"
+      placeholder="Enter runtime"
+      (input)="updateField('runtime', $event)"
+    />
+  
+    <label for="genre">Genre:</label>
+    <input
+      id="genre"
+      placeholder="Enter genre"
+      (input)="updateField('genre', $event)"
+    />
+  
+    <label for="imdb_rating">IMDb Rating:</label>
+    <input
+      id="imdb_rating"
+      type="number"
+      placeholder="Enter IMDb rating"
+      (input)="updateField('imdb_rating', $event)"
+    />
+  
+    <label for="meta_score">Meta Score:</label>
+    <input
+      id="meta_score"
+      type="number"
+      placeholder="Enter meta score"
+      (input)="updateField('meta_score', $event)"
+    />
+  
+    <label for="director">Director:</label>
+    <input
+      id="director"
+      placeholder="Enter director"
+      (input)="updateField('director', $event)"
+    />
+  
+    <label for="stars">Stars:</label>
+    <input
+      id="star1"
+      placeholder="Enter star 1"
+      (input)="updateField('star1', $event)"
+    />
+    <input
+      id="star2"
+      placeholder="Enter star 2"
+      (input)="updateField('star2', $event)"
+    />
+    <input
+      id="star3"
+      placeholder="Enter star 3"
+      (input)="updateField('star3', $event)"
+    />
+    <input
+      id="star4"
+      placeholder="Enter star 4"
+      (input)="updateField('star4', $event)"
+    />
+  
+    <label for="no_of_votes">Votes:</label>
+    <input
+      id="no_of_votes"
+      type="number"
+      placeholder="Enter number of votes"
+      (input)="updateField('no_of_votes', $event)"
+    />
+  
+    <label for="gross">Gross:</label>
+    <input
+      id="gross"
+      type="number"
+      placeholder="Enter gross revenue"
+      (input)="updateField('gross', $event)"
+    />
+  
+    <label for="overview">Overview:</label>
+    <textarea
+      id="overview"
+      placeholder="Enter movie overview"
+      (input)="updateField('overview', $event)"
+    ></textarea>
+  
+    <label for="poster_link">Poster Link:</label>
+    <input
+      id="poster_link"
+      placeholder="Enter poster link"
+      (input)="updateField('poster_link', $event)"
+    />
+  
+    <button (click)="addMovie()">Add Movie</button>
+  </div>
+  

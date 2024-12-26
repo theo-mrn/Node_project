@@ -1,0 +1,54 @@
+<div class="auth-container">
+  <h2>Register</h2>
+  <form>
+    <label for="username">Username:</label>
+    <input
+      id="username"
+      name="username"
+      type="text"
+      (input)="updateField('username', $event)"
+      required
+    />
+
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      (input)="updateField('email', $event)"
+      required
+    />
+
+    <label for="password">Password:</label>
+    <input
+      id="password"
+      name="password"
+      type="password"
+      (input)="updateField('password', $event)"
+      required
+    />
+
+    <button type="button" (click)="onRegister()">Register</button>
+  </form>
+
+  <h2>Login</h2>
+  <form>
+    <label for="login-email">Email:</label>
+    <input
+      id="login-email"
+      type="email"
+      (input)="updateField('email', $event)"
+      required
+    />
+
+    <label for="login-password">Password:</label>
+    <input
+      id="login-password"
+      type="password"
+      (input)="updateField('password', $event)"
+      required
+    />
+
+    <button type="button" (click)="onLogin()">Login</button>
+  </form>
+</div>

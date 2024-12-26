@@ -1,0 +1,32 @@
+.movie-list {
+    margin: 20px;
+  }
+  
+  .search-container {
+    margin-bottom: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    cursor: pointer;
+    background-color: #f8f8f8;
+    text-align: left;
+  }
+  
+  th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  img {
+    border-radius: 4px;
+  }
+  
