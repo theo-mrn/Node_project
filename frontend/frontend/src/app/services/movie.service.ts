@@ -15,7 +15,12 @@ export class MovieService {
     return this.http.get<any[]>(`${this.baseUrl}/movies`);
   }
 
-  // Créer un film
+  // Récupérer un film par son ID
+  getMovieById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/movies/${id}`);
+  }
+
+  // Créer un nouveau film
   createMovie(movieData: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/movies`, movieData);
   }
@@ -25,30 +30,29 @@ export class MovieService {
     return this.http.put<any>(`${this.baseUrl}/movies/${id}`, movieData);
   }
 
-  // Noter un film
-  rateMovie(id: number, data: { rating: number }): Observable<any> {
-    return this.http.put(`${this.baseUrl}/movies/${id}/rate`, data);
-  }
-
   // Supprimer un film
   deleteMovie(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/movies/${id}`);
   }
 
-  // Récupérer un film par son ID
-  getMovieById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/movies/${id}`);
+
+  rateMovie(movieId: number, ratingData: { userId: number; rating: number }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/movies/${movieId}/rate`, ratingData);
   }
 
-  addComment(movieId: number, commentData: { content: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/movies/${movieId}/comments`, commentData);
-  }
-  
-  getCommentsByMovie(movieId: number): Observable<any> {
+  // Récupérer les commentaires d'un film
+  getCommentsByMovie(movieId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/movies/${movieId}/comments`);
   }
 
-  // Supprimer un commentaire par son ID
+  // Ajouter un commentaire à un film
+ 
+  addComment(movieId: number, commentData: { content: string }): Observable<any> {
+    console.log("hueirozhdrzio");
+    return this.http.post<any>(`${this.baseUrl}/movies/${movieId}/comments`, commentData);
+  }
+
+  // Supprimer un commentaire
   deleteComment(commentId: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/comments/${commentId}`);
   }

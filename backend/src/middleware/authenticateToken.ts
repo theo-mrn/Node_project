@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/user';
 
-// Interface étendue pour inclure l'utilisateur authentifié
 export interface AuthenticatedRequest extends Request {
   user?: User;
 }
@@ -22,24 +21,17 @@ export const authenticateToken = async (
   const token = authHeader.split(' ')[1];
 
   try {
-    // Décodage du token pour récupérer id et username
-    const decoded = jwt.verify(token, 'your-secret-key') as { id: number; username: string };
-    console.log('Token décodé avec succès :', decoded);
-
+    const decoded = jwt.verify(token, 'your-secret-key') as { id: number };
     const user = await User.findByPk(decoded.id);
+
     if (!user) {
-      console.log(`Utilisateur avec l'ID ${decoded.id} introuvable`);
       res.status(403).json({ error: 'Utilisateur non trouvé.' });
       return;
     }
 
-    // Ajout de l'utilisateur à la requête
     req.user = user;
-
-    // Passage au middleware suivant
     next();
   } catch (error) {
-    console.error('Erreur lors de la vérification du token :', error);
     res.status(403).json({ error: 'Token invalide ou expiré.' });
   }
 };

@@ -18,7 +18,7 @@ Comment.init(
     },
     movieId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     content: {
       type: DataTypes.TEXT,

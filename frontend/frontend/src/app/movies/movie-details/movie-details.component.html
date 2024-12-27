@@ -6,6 +6,8 @@
   <p><strong>Rating:</strong> {{ movie?.rating || 'No rating yet' }}</p>
 
   <!-- Formulaire pour noter le film -->
+  <p><strong>Average Rating:</strong> {{ movie.rating || 'No ratings yet' }}</p>
+
   <label for="rating">Rate this movie:</label>
   <input
     id="rating"
@@ -27,14 +29,13 @@
 
   <!-- Liste des commentaires -->
   <div class="comment" *ngFor="let comment of comments">
-    <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
+    <p><strong>{{ comment.username || 'Anonymous' }}</strong>: {{ comment.content }}</p>
   </div>
 
   <!-- Formulaire pour ajouter un commentaire -->
   <textarea
-    placeholder="Write your comment here..."
-    (input)="onCommentInput($event)"
-    [value]="newComment"
-  ></textarea>
-  <button (click)="addComment()">Submit Comment</button>
+  placeholder="Write your comment here..."
+  (input)="onCommentInput($event)"
+></textarea>
+<button (click)="addComment()">Submit Comment</button>
 </div>

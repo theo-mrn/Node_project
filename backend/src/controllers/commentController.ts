@@ -2,34 +2,39 @@ import { Request, Response } from 'express';
 import { AuthenticatedRequest } from '../middleware/authenticateToken';
 import Comment from '../models/comment';
 
-// Ajouter un commentaire
+
 export const addComment = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { movieId, content, username } = req.body;
-
-    if (!movieId || !content) {
-      res.status(400).json({ error: 'Les champs movieId et content sont requis.' });
+    if (!req.user) {
+      res.status(403).json({ error: 'User not authenticated.' });
       return;
     }
 
-    // Si le commentaire provient d'un utilisateur authentifié
-    const userId = req.user ? req.user.id : null;
+    const { id: userId, username } = req.user; // Récupération de l'utilisateur
+    const { movieId, content } = req.body;
+
+    if (!movieId || !content) {
+      console.log('Missing movieId or content:', { movieId, content });
+      res.status(400).json({ error: 'movieId and content are required.' });
+      return;
+    }
+
+    console.log('Data received in backend:', { userId, username, movieId, content });
 
     const comment = await Comment.create({
       movieId,
       content,
       userId,
-      username: username || null, // Si pas de username, stocker null
+      username,
     });
 
     res.status(201).json(comment);
   } catch (error) {
-    console.error('Erreur lors de l\'ajout du commentaire:', error);
-    res.status(500).json({ error: 'Erreur interne du serveur.' });
+    console.error('Error adding comment:', error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 };
 
-// Récupérer les commentaires d'un film
 export const getCommentsByMovie = async (req: Request, res: Response): Promise<void> => {
   try {
     const { movieId } = req.params;
@@ -41,7 +46,6 @@ export const getCommentsByMovie = async (req: Request, res: Response): Promise<v
 
     res.status(200).json(comments);
   } catch (error) {
-    console.error('Erreur lors de la récupération des commentaires:', error);
     res.status(500).json({ error: 'Erreur interne du serveur.' });
   }
 };

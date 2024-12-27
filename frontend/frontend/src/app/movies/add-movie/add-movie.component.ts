@@ -31,11 +31,15 @@ export class AddMovieComponent {
 
   // Met à jour les champs du formulaire
   updateField(field: string, event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.newMovie[field] = inputElement.value;
+    const inputElement = event.target as HTMLInputElement | HTMLTextAreaElement;
+    const value =
+      inputElement.type === 'number' ? Number(inputElement.value) : inputElement.value.trim();
+    this.newMovie[field] = value;
   }
 
+  // Ajouter un film
   addMovie(): void {
+    console.log('Adding movie:', this.newMovie); // Log pour déboguer
     this.movieService.createMovie(this.newMovie).subscribe({
       next: (response) => {
         console.log('Movie added successfully:', response);

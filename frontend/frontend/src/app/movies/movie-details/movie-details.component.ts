@@ -15,6 +15,7 @@ export class MovieDetailsComponent implements OnInit {
   comments: any[] = []; // Liste des commentaires
   newRating: number | null = null; // Nouvelle note
   newComment: string = ''; // Nouveau commentaire
+  editing: boolean = false; // Indique si le mode édition est activé
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class MovieDetailsComponent implements OnInit {
     }
   }
 
+  // Charger les détails du film
   loadMovieDetails(movieId: number): void {
     this.movieService.getMovieById(movieId).subscribe({
       next: (response) => {
@@ -44,8 +46,44 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
+  // Charger les commentaires
+  loadComments(movieId: number): void {
+    this.movieService.getCommentsByMovie(movieId).subscribe({
+      next: (response) => {
+        this.comments = response;
+      },
+      error: (err) => {
+        console.error('Error fetching comments:', err);
+      },
+    });
+  }
 
+  // Basculer entre le mode édition et visualisation
+  toggleEditMode(): void {
+    this.editing = !this.editing;
+  }
 
+  // Mettre à jour un champ du film
+  updateField(field: string, event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.movie[field] = input.value.trim();
+  }
+
+  // Enregistrer les modifications du film
+  saveChanges(): void {
+    this.movieService.updateMovie(this.movie.id, this.movie).subscribe({
+      next: (response) => {
+        console.log('Movie updated successfully:', response);
+        this.movie = response;
+        this.editing = false; // Désactiver le mode édition
+      },
+      error: (err) => {
+        console.error('Error updating movie:', err);
+      },
+    });
+  }
+
+  // Gérer l'entrée de la note
   onRatingInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const value = Number(input.value);
@@ -59,47 +97,45 @@ export class MovieDetailsComponent implements OnInit {
 
   rateMovie(): void {
     if (this.newRating !== null) {
-      this.movieService.rateMovie(this.movie.id, { rating: this.newRating }).subscribe({
-        next: () => {
-          console.log('Rating updated successfully');
-          this.movie.rating = this.newRating;
+      this.movieService.rateMovie(this.movie.id, { userId: 1, rating: this.newRating }).subscribe({
+        next: (response) => {
+          console.log('Rating added successfully:', response);
+          this.movie.rating = response.avgRating; // Affiche la nouvelle moyenne
         },
         error: (err) => {
-          console.error('Error updating rating:', err);
+          console.error('Error adding rating:', err);
         },
       });
     } else {
-      alert('Please enter a valid rating');
+      alert('Please enter a valid rating.');
     }
   }
 
+  // Gérer l'entrée du commentaire
   onCommentInput(event: Event): void {
     const input = event.target as HTMLTextAreaElement;
     this.newComment = input.value.trim();
   }
 
-  loadComments(movieId: number): void {
-    this.movieService.getCommentsByMovie(movieId).subscribe({
-      next: (response) => {
-        this.comments = response; // Les commentaires incluent maintenant le username
-      },
-      error: (err) => {
-        console.error('Error fetching comments:', err);
-      },
-    });
-  }
-  
+  // Ajouter un commentaire
   addComment(): void {
-    if (this.newComment === '') {
+    if (this.newComment.trim() === '') {
       alert('Comment cannot be empty.');
       return;
     }
   
-    this.movieService.addComment(this.movie.id, { content: this.newComment }).subscribe({
+    const commentData = {
+      movieId: this.movie.id, // Vérifiez que this.movie.id est correctement défini
+      content: this.newComment,
+    };
+  
+    console.log('Sending comment:', commentData);
+  
+    this.movieService.addComment(this.movie.id, commentData).subscribe({
       next: (response) => {
-        console.log('Comment added successfully');
-        this.comments.unshift(response);
-        this.newComment = '';
+        console.log('Comment added successfully:', response);
+        this.comments.unshift(response); // Ajoute le commentaire en début de liste
+        this.newComment = ''; // Réinitialise le champ commentaire
       },
       error: (err) => {
         console.error('Error adding comment:', err);
@@ -107,6 +143,7 @@ export class MovieDetailsComponent implements OnInit {
     });
   }
 
+  // Supprimer un commentaire
   deleteComment(commentId: number): void {
     if (confirm('Are you sure you want to delete this comment?')) {
       this.movieService.deleteComment(commentId).subscribe({
@@ -120,12 +157,13 @@ export class MovieDetailsComponent implements OnInit {
     }
   }
 
+  // Supprimer un film
   deleteMovie(): void {
     if (confirm('Are you sure you want to delete this movie?')) {
       this.movieService.deleteMovie(this.movie.id).subscribe({
         next: () => {
           console.log('Movie deleted successfully');
-          this.router.navigate(['/']); // Redirige vers la liste des films
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Error deleting movie:', err);
