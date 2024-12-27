@@ -1,12 +1,12 @@
-import { DataTypes, Model } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../config/database';
 
 export class User extends Model {
   public id!: number;
+  public username!: string;
   public email!: string;
   public password!: string;
-  public username!: string; // Ajoutez cette ligne
-  public isDirector!: boolean;
+  public isdirector!: boolean; // Utilisez le nom exact de la colonne
 }
 
 User.init(
@@ -15,6 +15,10 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
@@ -25,18 +29,16 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    username: {
-      type: DataTypes.STRING, // Ajoutez cette définition
-      allowNull: false,
-    },
-    isDirector: {
+    isdirector: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false,
     },
   },
   {
     sequelize,
-    modelName: 'User',
     tableName: 'users',
   }
 );
+
+export default User;

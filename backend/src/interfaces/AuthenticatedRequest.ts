@@ -1,6 +1,6 @@
 import { Request } from 'express';
+import { User } from '../models/user';
 
-// Définir le type étendu de Request
 export interface AuthenticatedRequest extends Request {
-  user?: { id: number; email: string };
+  user: User;
 }

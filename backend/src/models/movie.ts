@@ -19,6 +19,7 @@ export class Movie extends Model {
   public gross!: number | null;
   public overview!: string | null;
   public poster_link!: string | null;
+  public rating!: number | null; // Nouvelle colonne pour la note
 }
 
 Movie.init(
@@ -92,6 +93,14 @@ Movie.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    rating: {
+      type: DataTypes.INTEGER, // Note entre 1 et 20
+      allowNull: true, // Initialisé à null
+      validate: {
+        min: 1,
+        max: 20, // Contrôle la plage autorisée
+      },
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -109,13 +118,4 @@ Movie.init(
   }
 );
 
-
-
 export default Movie;
-
-
-
-
-
-
-

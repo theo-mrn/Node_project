@@ -1,0 +1,94 @@
+.movie-details {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .movie-details h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .movie-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .movie-details label {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+  
+  .movie-details input,
+  .movie-details textarea {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .movie-details button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .movie-details button:hover {
+    background-color: #0056b3;
+  }
+  
+  .movie-details .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .movie-details .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .movie-details .message {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 4px;
+  }
+  
+  .movie-details .message.success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .movie-details .message.error {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .movie-details input[type="number"] {
+    width: 60%;
+  }
+  
+  .movie-details .rating-container {
+    margin-top: 20px;
+  }
+  
+  .movie-details .rating-container label {
+    margin-right: 10px;
+  }
+  
+  .movie-details .rating-container input {
+    width: 50px;
+  }
+  
+  .movie-details .rating-container button {
+    margin-left: 10px;
+  }

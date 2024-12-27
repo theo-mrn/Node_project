@@ -1,0 +1,15 @@
+<div class="status-page">
+    <h1>Modifier le statut de directeur</h1>
+    <form (submit)="updateStatus()">
+        <div class="form-group">
+            <label>
+              <input
+                type="checkbox"
+                (change)="onIsDirectorChange($event)"
+              />
+              Est directeur
+            </label>
+          </div>
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>

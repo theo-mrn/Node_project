@@ -7,63 +7,70 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
+  registerData: Record<'username' | 'email' | 'password', string> & { isdirector: boolean } = {
+    username: '',
+    email: '',
+    password: '',
+    isdirector: false, // Ajout du champ isdirector
+  };
+
+  loginData: Record<'email' | 'password', string> = {
+    email: '',
+    password: '',
+  };
+
+  message: string = ''; // Message pour afficher les résultats à l'utilisateur
+  isError: boolean = false; // Indique si le message est une erreur
 
   constructor(private authService: AuthService) {}
 
-  // Fonction pour mettre à jour les champs
-  updateField(field: string, event: Event): void {
+  updateField(
+    form: 'register' | 'login',
+    field: 'username' | 'email' | 'password' | 'isdirector',
+    event: Event
+  ): void {
     const inputElement = event.target as HTMLInputElement;
 
-    if (!inputElement || !inputElement.value) {
-      return; // Évitez les erreurs si l'événement ou la valeur est null
-    }
+    if (!inputElement) return;
 
-    switch (field) {
-      case 'username':
-        this.username = inputElement.value;
-        break;
-      case 'email':
-        this.email = inputElement.value;
-        break;
-      case 'password':
-        this.password = inputElement.value;
-        break;
+    if (form === 'register') {
+      if (field === 'isdirector') {
+        this.registerData[field] = inputElement.checked; // Gestion du champ isdirector (case à cocher)
+      } else {
+        this.registerData[field] = inputElement.value;
+      }
+    } else if (form === 'login' && (field === 'email' || field === 'password')) {
+      this.loginData[field] = inputElement.value;
     }
   }
 
   onRegister(): void {
-    const userData = {
-      username: this.username,
-      email: this.email,
-      password: this.password,
-    };
-
-    this.authService.register(userData).subscribe({
+    this.authService.register(this.registerData).subscribe({
       next: (response) => {
-        console.log('Registration successful:', response);
+        this.message = 'Registration successful!';
+        this.isError = false;
+        console.log(response);
       },
       error: (err) => {
-        console.error('Registration error:', err);
+        this.message = 'Registration failed. Please try again.';
+        this.isError = true;
+        console.error(err);
       },
     });
   }
 
   onLogin(): void {
-    const credentials = {
-      email: this.email,
-      password: this.password,
-    };
-  
-    this.authService.login(credentials).subscribe({
+    this.authService.login(this.loginData).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
+        this.message = 'Login successful!';
+        this.isError = false;
         localStorage.setItem('token', response.token); // Stocke le token JWT
+        console.log(response);
       },
       error: (err) => {
-        console.error('Login error:', err);
+        this.message = 'Login failed. Please check your credentials.';
+        this.isError = true;
+        console.error(err);
       },
     });
   }

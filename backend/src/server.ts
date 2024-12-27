@@ -1,4 +1,4 @@
-import express, { Application } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -9,7 +9,7 @@ import swaggerDocument from './swagger/swagger.json';
 import { errorHandler } from './middleware/errorHandler';
 
 const app: Application = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware global
 app.use(bodyParser.json());
@@ -28,6 +28,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/movies', movieRoutes);
 app.use('/users', userRoutes);
 
+// Root route
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).send('Welcome to the MovieHub API');
+});
+
 // Test de connexion à la base de données
 sequelize
   .authenticate()
@@ -39,6 +44,11 @@ sequelize
   .sync({ alter: true }) // Synchronise automatiquement les colonnes manquantes ou modifiées
   .then(() => console.log('Database synced successfully'))
   .catch((err: Error) => console.error('Error syncing database:', err));
+
+// Middleware pour les erreurs 404 (routes inexistantes)
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({ error: 'Route not found' });
+});
 
 // Gestion des erreurs globales
 app.use(errorHandler);

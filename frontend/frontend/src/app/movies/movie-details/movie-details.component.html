@@ -1,69 +1,40 @@
 <div class="movie-details">
-  <div class="movie-details">
-    <h2>{{ movie?.series_title }}</h2>
-    <p><strong>Year:</strong> {{ movie?.released_year }}</p>
-    <p><strong>Genre:</strong> {{ movie?.genre }}</p>
-    <p><strong>Director:</strong> {{ movie?.director }}</p>
-    <!-- Autres détails -->
-  
-    <!-- Bouton pour supprimer le film -->
-    <button (click)="deleteMovie()" class="delete-button">Delete Movie</button>
+  <h2>{{ movie?.series_title }}</h2>
+  <p><strong>Year:</strong> {{ movie?.released_year }}</p>
+  <p><strong>Genre:</strong> {{ movie?.genre }}</p>
+  <p><strong>Director:</strong> {{ movie?.director }}</p>
+  <p><strong>Rating:</strong> {{ movie?.rating || 'No rating yet' }}</p>
+
+  <!-- Formulaire pour noter le film -->
+  <label for="rating">Rate this movie:</label>
+  <input
+    id="rating"
+    type="number"
+    min="1"
+    max="20"
+    placeholder="Enter rating between 1 and 20"
+    (input)="onRatingInput($event)"
+  />
+  <button (click)="rateMovie()">Submit Rating</button>
+
+  <!-- Bouton pour supprimer le film -->
+  <button (click)="deleteMovie()" class="delete-button">Delete Movie</button>
+</div>
+
+<!-- Section des commentaires -->
+<div class="comments-section">
+  <h3>Comments</h3>
+
+  <!-- Liste des commentaires -->
+  <div class="comment" *ngFor="let comment of comments">
+    <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
   </div>
 
-
-  <h2>Edit Movie Details</h2>
-
-  <label for="series_title">Title:</label>
-  <input
-    id="series_title"
-    [value]="movie.series_title"
-    (input)="updateField('series_title', $event)"
-  />
-
-  <label for="released_year">Year:</label>
-  <input
-    id="released_year"
-    type="number"
-    [value]="movie.released_year"
-    (input)="updateField('released_year', $event)"
-  />
-
-  <label for="genre">Genre:</label>
-  <input
-    id="genre"
-    [value]="movie.genre"
-    (input)="updateField('genre', $event)"
-  />
-
-  <label for="director">Director:</label>
-  <input
-    id="director"
-    [value]="movie.director"
-    (input)="updateField('director', $event)"
-  />
-
-  <label for="imdb_rating">IMDb Rating:</label>
-  <input
-    id="imdb_rating"
-    type="number"
-    [value]="movie.imdb_rating"
-    (input)="updateField('imdb_rating', $event)"
-  />
-
-  <label for="gross">Gross:</label>
-  <input
-    id="gross"
-    type="number"
-    [value]="movie.gross"
-    (input)="updateField('gross', $event)"
-  />
-
-  <label for="overview">Overview:</label>
+  <!-- Formulaire pour ajouter un commentaire -->
   <textarea
-    id="overview"
-    [value]="movie.overview"
-    (input)="updateField('overview', $event)"
+    placeholder="Write your comment here..."
+    (input)="onCommentInput($event)"
+    [value]="newComment"
   ></textarea>
-
-  <button (click)="saveChanges()">Save Changes</button>
+  <button (click)="addComment()">Submit Comment</button>
 </div>

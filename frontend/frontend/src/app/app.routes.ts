@@ -4,6 +4,8 @@ import { AuthComponent } from './auth/auth.component';
 import { MovieListComponent } from './movies/movie-list/movie-list.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { AddMovieComponent } from './movies/add-movie/add-movie.component';
+import { StatusComponent } from './status/status.component';
+
 
 
 export const routes: Routes = [
@@ -13,6 +15,8 @@ export const routes: Routes = [
   { path: 'movies/:id', component: MovieDetailsComponent }, // Détails d'un film  
   { path: 'add', component: AddMovieComponent },
   { path: 'movies/add', component: AddMovieComponent }, // Nouvelle route
+  { path: 'status', component: StatusComponent },
+
 
 
   

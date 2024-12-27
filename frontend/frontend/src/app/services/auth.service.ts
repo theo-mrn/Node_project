@@ -15,6 +15,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
+  updateDirectorStatus(isDirector: boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update-director-status`, { isDirector });
+  }
+
   // Connexion
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);

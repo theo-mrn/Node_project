@@ -35,7 +35,7 @@ export const updateMovie = async (req: Request, res: Response): Promise<void> =>
 
 export const deleteMovie = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    if (!req.user?.isDirector) {
+    if (!req.user?.isdirector) {
       res.status(403).json({ error: 'Access denied. Only directors can delete movies.' });
       return;
     }
@@ -53,5 +53,33 @@ export const deleteMovie = async (req: AuthenticatedRequest, res: Response): Pro
   } catch (err) {
     const error = err as Error;
     res.status(500).json({ error: error.message });
+  }
+};
+
+
+export const rateMovie = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params; // Récupérer l'ID du film
+  const { rating } = req.body; // Note envoyée par l'utilisateur
+
+  if (rating < 1 || rating > 20) {
+    res.status(400).json({ error: 'Rating must be between 1 and 20.' });
+    return;
+  }
+
+  try {
+    const movie = await Movie.findByPk(id);
+
+    if (!movie) {
+      res.status(404).json({ error: 'Movie not found.' });
+      return;
+    }
+
+    movie.rating = rating; // Mise à jour de la note
+    await movie.save();
+
+    res.status(200).json({ message: 'Rating updated successfully.', movie });
+  } catch (error) {
+    console.error('Error updating rating:', error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 };

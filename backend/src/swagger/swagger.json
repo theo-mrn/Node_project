@@ -122,6 +122,59 @@
         }
       }
     },
+    "/users/register": {
+  "post": {
+    "summary": "Register a new user",
+    "parameters": [
+      {
+        "name": "body",
+        "in": "body",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "The username of the user",
+              "example": "testuser"
+            },
+            "email": {
+              "type": "string",
+              "description": "The email of the user",
+              "example": "testuser@example.com"
+            },
+            "password": {
+              "type": "string",
+              "description": "The password of the user",
+              "example": "password123"
+            },
+            "isdirector": {
+              "type": "boolean",
+              "description": "Indicates if the user is a director",
+              "example": false
+            }
+          },
+          "required": ["username", "email", "password"]
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "User registered successfully",
+        "schema": {
+          "$ref": "#/definitions/User"
+        }
+      },
+      "400": {
+        "description": "Invalid input or email already in use"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+},
+
     "/users": {
       "get": {
         "summary": "Get all users",
@@ -234,6 +287,49 @@
           }
         }
       }
+    },
+    "/users/update-director-status": {
+      "put": {
+        "summary": "Update the director status of the authenticated user",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Bearer token for user authentication"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isDirector": {
+                  "type": "boolean",
+                  "description": "New director status",
+                  "example": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Director status updated successfully"
+          },
+          "400": {
+            "description": "Invalid input or missing data"
+          },
+          "403": {
+            "description": "User not authenticated"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -304,6 +400,11 @@
         },
         "password": {
           "type": "string"
+        },
+        "isdirector": {
+          "type": "boolean",
+          "description": "Indicates if the user is a director",
+          "example": false
         }
       }
     }
