@@ -123,14 +123,12 @@ export class MovieDetailsComponent implements OnInit {
       alert('Comment cannot be empty.');
       return;
     }
-  
+
     const commentData = {
       movieId: this.movie.id, // Vérifiez que this.movie.id est correctement défini
       content: this.newComment,
     };
-  
-    console.log('Sending comment:', commentData);
-  
+
     this.movieService.addComment(this.movie.id, commentData).subscribe({
       next: (response) => {
         console.log('Comment added successfully:', response);

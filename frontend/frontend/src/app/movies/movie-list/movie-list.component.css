@@ -1,32 +1,55 @@
-.movie-list {
-    margin: 20px;
-  }
-  
-  .search-container {
-    margin-bottom: 10px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th {
-    cursor: pointer;
-    background-color: #f8f8f8;
-    text-align: left;
-  }
-  
-  th, td {
-    padding: 8px;
-    border: 1px solid #ddd;
-  }
-  
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  img {
-    border-radius: 4px;
-  }
-  
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.movie-title {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.favorite-btn {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.favorite-btn.favorited {
+  background-color: #ff4757;
+  color: white;
+}
+
+.favorite-btn:hover {
+  background-color: #e74c3c;
+  color: white;
+}

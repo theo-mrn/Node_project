@@ -1,33 +1,30 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/database';
 
-class Rating extends Model {}
+class Favorite extends Model {}
 
-Rating.init(
+Favorite.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       autoIncrement: true,
-    },
-    movieId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      primaryKey: true,
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    rating: {
+    movieId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'Rating',
-    tableName: 'ratings',
+    modelName: 'Favorite',
+    tableName: 'favorites',
+    timestamps: true,
   }
 );
 
-export default Rating;
+export default Favorite;

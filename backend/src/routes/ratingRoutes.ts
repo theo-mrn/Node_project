@@ -1,8 +1,15 @@
-import express from 'express';
+import { Router } from 'express';
 import { addRating } from '../controllers/ratingController';
 
-const router = express.Router();
+const router = Router();
 
-router.post('/movies/:movieId/rate', addRating);
+// Route pour ajouter une note
+router.post('/:movieId/rate', async (req, res, next) => {
+  try {
+    await addRating(req, res);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

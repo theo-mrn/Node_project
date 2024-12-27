@@ -1,13 +1,53 @@
 <div class="movie-details">
-  <h2>{{ movie?.series_title }}</h2>
-  <p><strong>Year:</strong> {{ movie?.released_year }}</p>
-  <p><strong>Genre:</strong> {{ movie?.genre }}</p>
-  <p><strong>Director:</strong> {{ movie?.director }}</p>
-  <p><strong>Rating:</strong> {{ movie?.rating || 'No rating yet' }}</p>
+  <h2 *ngIf="!editing">{{ movie?.series_title }}</h2>
+  <input
+    *ngIf="editing"
+    type="text"
+    [value]="movie.series_title"
+    (input)="updateField('series_title', $event)"
+    placeholder="Enter movie title"
+  />
 
-  <!-- Formulaire pour noter le film -->
+  <p><strong>Year:</strong>
+    <span *ngIf="!editing">{{ movie?.released_year }}</span>
+    <input
+      *ngIf="editing"
+      type="number"
+      [value]="movie.released_year"
+      (input)="updateField('released_year', $event)"
+      placeholder="Enter release year"
+    />
+  </p>
+
+  <p><strong>Genre:</strong>
+    <span *ngIf="!editing">{{ movie?.genre }}</span>
+    <input
+      *ngIf="editing"
+      type="text"
+      [value]="movie.genre"
+      (input)="updateField('genre', $event)"
+      placeholder="Enter genre"
+    />
+  </p>
+
+  <p><strong>Director:</strong>
+    <span *ngIf="!editing">{{ movie?.director }}</span>
+    <input
+      *ngIf="editing"
+      type="text"
+      [value]="movie.director"
+      (input)="updateField('director', $event)"
+      placeholder="Enter director"
+    />
+  </p>
+
   <p><strong>Average Rating:</strong> {{ movie.rating || 'No ratings yet' }}</p>
 
+  <button *ngIf="!editing" (click)="toggleEditMode()">Edit Movie</button>
+  <button *ngIf="editing" (click)="saveChanges()">Save Changes</button>
+  <button *ngIf="editing" (click)="toggleEditMode()">Cancel</button>
+
+  <!-- Formulaire pour noter le film -->
   <label for="rating">Rate this movie:</label>
   <input
     id="rating"
@@ -34,8 +74,9 @@
 
   <!-- Formulaire pour ajouter un commentaire -->
   <textarea
-  placeholder="Write your comment here..."
-  (input)="onCommentInput($event)"
-></textarea>
-<button (click)="addComment()">Submit Comment</button>
+    placeholder="Write your comment here..."
+    (input)="onCommentInput($event)"
+    [value]="newComment"
+  ></textarea>
+  <button (click)="addComment()">Submit Comment</button>
 </div>

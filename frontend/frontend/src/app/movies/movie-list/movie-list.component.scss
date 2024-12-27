@@ -1,20 +1,35 @@
-.movie-list {
-  max-width: 800px;
-  margin: 20px auto;
-  font-family: Arial, sans-serif;
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+.movie-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
 
-    th {
-      background-color: #f4f4f4;
-    }
-  }
+.movie-poster {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.movie-title {
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
 }

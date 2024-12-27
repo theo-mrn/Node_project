@@ -5,11 +5,9 @@ import cors from 'cors';
 import { sequelize } from './config/database';
 import movieRoutes from './routes/movieRoutes';
 import userRoutes from './routes/userRoutes';
+import ratingRoutes from './routes/ratingRoutes';
 import swaggerDocument from './swagger/swagger.json';
 import { errorHandler } from './middleware/errorHandler';
-import ratingRoutes from './routes/ratingRoutes'; // Importer les routes des évaluations
-
-
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -30,7 +28,8 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Routes
 app.use('/movies', movieRoutes);
 app.use('/users', userRoutes);
-app.use('/api', ratingRoutes); 
+app.use('/movies', ratingRoutes);
+
 // Test de connexion à la base de données
 sequelize
   .authenticate()

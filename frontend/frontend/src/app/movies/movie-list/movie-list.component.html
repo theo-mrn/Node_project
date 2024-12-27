@@ -1,64 +1,17 @@
-<div class="movie-list">
-  <h2>Movies</h2>
-  <div class="movie-list-header">
-    <h2>Movie List</h2>
-   
-    <div class="movie-list-header">
-      <h2>Movie List</h2>
-      <button routerLink="/add">Add New Movie</button>
-    </div>
-    
-
+<div class="movie-grid">
+  <div class="movie-card" *ngFor="let movie of movies">
+    <img
+      [src]="movie.poster_link"
+      alt="Poster of {{ movie.series_title }}"
+      class="movie-poster"
+    />
+    <h3 class="movie-title">{{ movie.series_title }}</h3>
+    <button
+      class="favorite-btn"
+      (click)="toggleFavorite(movie)"
+      [class.favorited]="isFavorite(movie)"
+    >
+      {{ isFavorite(movie) ? 'Unfavorite' : 'Add to Favorites' }}
+    </button>
   </div>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Year</th>
-        <th>Certificate</th>
-        <th>Runtime</th>
-        <th>Genre</th>
-        <th>IMDb Rating</th>
-        <th>Meta Score</th>
-        <th>Director</th>
-        <th>Star 1</th>
-        <th>Star 2</th>
-        <th>Star 3</th>
-        <th>Star 4</th>
-        <th>No of Votes</th>
-        <th>Gross</th>
-        <th>Overview</th>
-        <th>Poster</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let movie of movies">
-        <td>{{ movie.id }}</td>
-        <td>{{ movie.series_title }}</td>
-        <td>{{ movie.released_year }}</td>
-        <td>{{ movie.certificate }}</td>
-        <td>{{ movie.runtime }}</td>
-        <td>{{ movie.genre }}</td>
-        <td>{{ movie.imdb_rating }}</td>
-        <td>{{ movie.meta_score }}</td>
-        <td>{{ movie.director }}</td>
-        <td>{{ movie.star1 }}</td>
-        <td>{{ movie.star2 }}</td>
-        <td>{{ movie.star3 }}</td>
-        <td>{{ movie.star4 }}</td>
-        <td>{{ movie.no_of_votes }}</td>
-        <td>{{ movie.gross }}</td>
-        <td>{{ movie.overview }}</td>
-        <td>
-          <img
-            [src]="movie.poster_link"
-            alt="Poster for {{ movie.series_title }}"
-            width="100"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

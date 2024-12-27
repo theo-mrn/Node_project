@@ -94,12 +94,8 @@ Movie.init(
       allowNull: true,
     },
     rating: {
-      type: DataTypes.INTEGER, // Note entre 1 et 20
-      allowNull: true, // Initialisé à null
-      validate: {
-        min: 1,
-        max: 20, // Contrôle la plage autorisée
-      },
+      type: DataTypes.FLOAT, // Colonne pour la moyenne des notes
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^32.3.3",
     "@angular/animations": "^19.0.0",
     "@angular/common": "^19.0.5",
     "@angular/compiler": "^19.0.0",
@@ -18,8 +19,8 @@
     "@angular/platform-browser": "^19.0.5",
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.5",
-    "ag-grid-angular": "^33.0.3",
-    "ag-grid-community": "^33.0.3",
+    "ag-grid-angular": "^30.0.3",
+    "ag-grid-community": "^30.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
