@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,27 +9,40 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:3000/users'; // URL du backend pour les utilisateurs
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
+  // Inscription avec récupération du token
   register(userData: { username: string; email: string; password: string; isdirector: boolean }): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/register`, userData);
   }
 
-  updateDirectorStatus(isDirector: boolean): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update-director-status`, { isDirector });
+  // Connexion utilisateur
+  login(credentials: { email: string; password: string }): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials);
   }
 
-  getUserRole(): Observable<{ isDirector: boolean }> {
-    return this.http.get<{ isDirector: boolean }>(`${this.apiUrl}/users/is-director`);
+  // Vérification si l'utilisateur est connecté
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token'); // Vérifie si un token est présent
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  // Déconnexion de l'utilisateur
+  logout(): void {
+    localStorage.removeItem('token'); // Supprime le token localement
+    this.router.navigate(['/auth']); // Redirige vers la page de connexion
   }
 
+  // Vérification du rôle (director ou non)
   isDirector(): Observable<{ isDirector: boolean }> {
     return this.http.get<{ isDirector: boolean }>(`${this.apiUrl}/is-director`);
   }
 
-  
+  updateSelfDirectorStatus(isdirector: boolean): Observable<{ isdirector: boolean }> {
+    return this.http.put<{ isdirector: boolean }>(`${this.apiUrl}/update-director-status`, { isdirector });
+  }
+
+  // Récupérer le rôle utilisateur (alternative)
+  getUserRole(): Observable<{ isDirector: boolean }> {
+    return this.http.get<{ isDirector: boolean }>(`${this.apiUrl}/is-director`);
+  }
 }

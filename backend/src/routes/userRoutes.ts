@@ -8,7 +8,7 @@ import {
   deleteUser,
   registerUser,
   loginUser,
-  updateDirectorStatus,
+  updateSelfDirectorStatus, // Correctement importé
 } from '../controllers/userController';
 
 const router = Router();
@@ -30,29 +30,16 @@ router.get('/is-director', authenticateToken, (req: AuthenticatedRequest, res: R
   res.json({ isDirector: req.user.isdirector });
 });
 
-
-// Route de test sécurisée
-router.get('/test', authenticateToken, (req: AuthenticatedRequest, res: Response) => {
-  if (req.user) {
-    res.json({
-      message: 'Route test accessible',
-      user: req.user, // Retourne l'utilisateur authentifié
-    });
-  } else {
-    res.status(403).json({ error: 'Utilisateur non authentifié.' });
-  }
-});
-
 // Routes dynamiques doivent venir après
 router.get('/:id', getUserById);
 
 // Routes sécurisées avec authenticateToken
 router.use(authenticateToken); // Applique le middleware à toutes les routes suivantes
-
+router.put('/update-director-status', authenticateToken, updateSelfDirectorStatus);
 router.get('/', getUsers);                      // Récupérer tous les utilisateurs
 router.post('/', createUser);                   // Créer un nouvel utilisateur
 router.put('/:id', updateUser);                 // Mettre à jour un utilisateur existant
 router.delete('/:id', deleteUser);              // Supprimer un utilisateur
-router.put('/update-director-status', updateDirectorStatus); // Mettre à jour le statut de directeur
+
 
 export default router;

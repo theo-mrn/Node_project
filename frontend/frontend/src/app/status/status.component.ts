@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -6,25 +6,40 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css'],
 })
-export class StatusComponent {
-  isDirector: boolean = false;
+export class StatusComponent implements OnInit {
+  isdirector: boolean = false; // Rôle actuel de l'utilisateur
+  message: string = ''; // Message de succès ou d'erreur
+  isError: boolean = false; // Indique si le message est une erreur
 
   constructor(private authService: AuthService) {}
 
-  onIsDirectorChange(event: Event): void {
-    const target = event.target as HTMLInputElement; // Assurez-vous que c'est un élément HTMLInput
-    this.isDirector = target.checked; // Utilisez la propriété 'checked' de l'élément
+  ngOnInit(): void {
+    this.loadCurrentRole();
   }
 
-  
-  updateStatus() {
-    this.authService.updateDirectorStatus(this.isDirector).subscribe({
-      next: () => {
-        alert('Statut mis à jour avec succès !');
+  loadCurrentRole(): void {
+    this.authService.isDirector().subscribe({
+      next: (response) => {
+        this.isdirector = response.isDirector;
       },
-      error: (error) => {
-        alert('Erreur lors de la mise à jour du statut.');
-        console.error(error);
+      error: (err) => {
+        console.error('Erreur lors du chargement du rôle utilisateur :', err);
+      },
+    });
+  }
+
+  toggleDirectorStatus(): void {
+    const newStatus = !this.isdirector; // Inverse le statut actuel
+    this.authService.updateSelfDirectorStatus(newStatus).subscribe({
+      next: (response) => {
+        this.isdirector = response.isdirector;
+        this.message = `Votre rôle a été mis à jour avec succès.`;
+        this.isError = false;
+      },
+      error: (err) => {
+        this.message = 'Erreur lors de la mise à jour de votre rôle.';
+        this.isError = true;
+        console.error(err);
       },
     });
   }

@@ -16,11 +16,12 @@ router.get('/', authenticateToken, getMovies);
 router.get('/:id', authenticateToken, getMovieById);
 router.post('/', authenticateToken, createMovie);
 router.put('/:id', authenticateToken, updateMovie);
-router.delete('/:id', deleteMovie);
+router.delete('/:id', authenticateToken, deleteMovie);
 router.put('/:id/rate', rateMovie);
-
+router.delete('/:id', authenticateToken, deleteMovie);
 router.get('/:movieId/comments', getCommentsByMovie);
 router.post('/:movieId/comments', authenticateToken, addComment);
 router.post('/movies/:movieId/comments', authenticateToken, addComment);
+
 
 export default router;

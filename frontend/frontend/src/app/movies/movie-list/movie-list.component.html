@@ -1,10 +1,7 @@
-<div class="toolbar">
+<div class="search-container">
   <button (click)="toggleShowFavorites()" class="toggle-favorites-btn">
     {{ showFavorites ? 'Show All Movies' : 'Show Favorites' }}
   </button>
-</div>
-
-<div class="search-container">
   <input
     type="text"
     placeholder="Search for a movie..."
@@ -13,7 +10,6 @@
     (focus)="showSuggestions = true"
     (blur)="hideSuggestionsWithDelay()"
   />
-
   <ul class="suggestions-list" *ngIf="showSuggestions && suggestions.length">
     <li
       *ngFor="let suggestion of suggestions"

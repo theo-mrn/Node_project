@@ -157,57 +157,35 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 };
 
 
-
-
-
-export const updateDirectorStatus = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+export const updateSelfDirectorStatus = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    // Vérifier si l'utilisateur est authentifié
     if (!req.user) {
-      console.error('Erreur : Utilisateur non authentifié.');
       res.status(403).json({ error: 'Utilisateur non authentifié.' });
       return;
     }
 
-    // Extraire les données de la requête
-    const userId = req.user.id; // ID utilisateur extrait du middleware
-    const { isDirector } = req.body; // Nouvelle valeur pour isdirector
+    const { isdirector } = req.body;
 
-    console.log('Requête reçue pour mise à jour :');
-    console.log(` - ID utilisateur : ${userId}`);
-    console.log(` - Nouvelle valeur isDirector : ${isDirector}`);
-
-    // Valider les données
-    if (typeof isDirector === 'undefined') {
-      console.error('Erreur : Champ "isDirector" manquant.');
-      res.status(400).json({ error: 'Champ "isDirector" manquant.' });
+    if (typeof isdirector !== 'boolean') {
+      res.status(400).json({ error: 'Le champ "isdirector" doit être un booléen.' });
       return;
     }
 
-    // Exécuter la requête SQL brute
-    console.log('Exécution de la requête SQL brute...');
-    const [updatedRowsCount] = await sequelize.query(
-      'UPDATE users SET isdirector = :isDirector, "updatedAt" = NOW() WHERE id = :id',
+    const userId = req.user.id;
+
+    console.log(`Mise à jour pour l'utilisateur ID : ${userId}, isdirector : ${isdirector}`);
+
+    await sequelize.query(
+      'UPDATE "users" SET "isdirector" = :isdirector, "updatedAt" = NOW() WHERE "id" = :id',
       {
-        replacements: { isDirector, id: userId },
-        type: QueryTypes.UPDATE, // Indique une requête de type UPDATE
+        replacements: { isdirector, id: userId },
+        type: QueryTypes.UPDATE,
       }
     );
 
-    console.log('Nombre de lignes mises à jour via SQL brut :', updatedRowsCount);
-
-    // Vérifier si une mise à jour a eu lieu
-    if (updatedRowsCount === 0) {
-      console.warn(`Aucune ligne mise à jour pour l'utilisateur ID : ${userId}`);
-      res.status(404).json({ error: 'Utilisateur non trouvé ou aucune modification effectuée.' });
-      return;
-    }
-
-    // Répondre au client
-    console.log(`Mise à jour réussie pour l'utilisateur ID : ${userId}`);
-    res.status(200).json({ message: 'Statut de directeur mis à jour.', id: userId, isDirector });
+    res.status(200).json({ message: 'Statut de directeur mis à jour avec succès.', isdirector });
   } catch (error) {
-    console.error('Erreur dans updateDirectorStatus :', error);
+    console.error('Erreur dans updateSelfDirectorStatus :', error);
     res.status(500).json({ error: 'Erreur interne du serveur.' });
   }
 };

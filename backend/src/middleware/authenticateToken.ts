@@ -25,10 +25,11 @@ export const authenticateToken = async (
     const user = await User.findByPk(decoded.id);
 
     if (!user) {
-      res.status(403).json({ error: 'Utilisateur non trouvé.' });
+      res.status(404).json({ error: 'Utilisateur non trouvé.' });
       return;
     }
 
+    console.log('Utilisateur authentifié:', user);
     req.user = user;
     next();
   } catch (error) {
