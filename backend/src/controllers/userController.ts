@@ -100,19 +100,19 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       username,
       email,
       password: hashedPassword,
-      isdirector: isdirector || false, // Valeur par défaut si non spécifiée
+      isdirector: isdirector || false, 
     });
 
     // Génération du token JWT
     const token = jwt.sign(
       { id: newUser.id, email: newUser.email, isDirector: newUser.isdirector },
-      'your-secret-key', // Utilisez votre clé secrète
-      { expiresIn: '1h' } // Durée de validité du token
+      'your-secret-key', 
+      { expiresIn: '1h' } 
     );
 
     res.status(201).json({
       message: 'User registered successfully.',
-      token, // Inclure le token dans la réponse
+      token, 
       user: {
         id: newUser.id,
         username: newUser.username,

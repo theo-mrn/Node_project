@@ -39,11 +39,11 @@ export class AddMovieComponent {
 
   // Ajouter un film
   addMovie(): void {
-    console.log('Adding movie:', this.newMovie); // Log pour déboguer
+    console.log('Adding movie:', this.newMovie); 
     this.movieService.createMovie(this.newMovie).subscribe({
       next: (response) => {
         console.log('Movie added successfully:', response);
-        this.router.navigate(['/movies']); // Redirection vers la liste des films
+        this.router.navigate(['/movies']); 
       },
       error: (err) => {
         console.error('Error adding movie:', err);

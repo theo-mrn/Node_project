@@ -14,7 +14,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
   try {
     const decoded = jwt.verify(token, secretKey);
-    (req as any).user = decoded; // Stocke l'utilisateur dans req pour usage ultérieur
+    (req as any).user = decoded; 
     next();
   } catch (err) {
     res.status(403).json({ error: 'Invalid token.' });

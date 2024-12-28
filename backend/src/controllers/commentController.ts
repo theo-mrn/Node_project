@@ -10,7 +10,7 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
       return;
     }
 
-    const { id: userId, username } = req.user; // Récupération de l'utilisateur
+    const { id: userId, username } = req.user;
     const { movieId, content } = req.body;
 
     if (!movieId || !content) {

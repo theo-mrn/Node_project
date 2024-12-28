@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common'; // Import direct de NgIf
+import { NgIf } from '@angular/common'; 
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -8,11 +8,11 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [NgIf], // Inclure seulement NgIf
+  imports: [NgIf], 
 })
 export class NavbarComponent implements OnInit {
-  isDirector: boolean = false; // Détermine si l'utilisateur est un directeur
-  isLoggedIn: boolean = false; // Détermine si l'utilisateur est connecté
+  isDirector: boolean = false; 
+  isLoggedIn: boolean = false; 
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -28,7 +28,7 @@ export class NavbarComponent implements OnInit {
   }
 
   checkIfLoggedIn(): void {
-    this.isLoggedIn = this.authService.isLoggedIn(); // Vérifie si l'utilisateur est connecté
+    this.isLoggedIn = this.authService.isLoggedIn(); 
   }
 
   checkIfDirector(): void {
@@ -44,8 +44,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout(); // Appelle le service pour se déconnecter
-    this.isLoggedIn = false; // Réinitialise l'état de connexion
-    this.isDirector = false; // Réinitialise le statut de directeur
+    this.authService.logout(); 
+    this.isLoggedIn = false;
+    this.isDirector = false;
   }
 }

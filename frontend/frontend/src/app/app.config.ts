@@ -7,5 +7,5 @@ import { routes } from './app.routes';
 export const appConfig = [
   provideRouter(routes),
   importProvidersFrom(FormsModule),
-  importProvidersFrom(RouterModule), // Ajoutez ceci
+  importProvidersFrom(RouterModule), 
 ];

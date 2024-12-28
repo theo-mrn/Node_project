@@ -35,7 +35,6 @@ export const updateMovie = async (req: Request, res: Response): Promise<void> =>
 
 export const deleteMovie = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
-    // Ajoutez un log pour vérifier `req.user`
     console.log('User attempting to delete movie:', req.user);
 
     if (!req.user || !req.user.isdirector) {
@@ -61,8 +60,8 @@ export const deleteMovie = async (req: AuthenticatedRequest, res: Response): Pro
 
 
 export const rateMovie = async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params; // Récupérer l'ID du film
-  const { rating } = req.body; // Note envoyée par l'utilisateur
+  const { id } = req.params;
+  const { rating } = req.body;
 
   if (rating < 1 || rating > 20) {
     res.status(400).json({ error: 'Rating must be between 1 and 20.' });
@@ -77,7 +76,7 @@ export const rateMovie = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    movie.rating = rating; // Mise à jour de la note
+    movie.rating = rating;
     await movie.save();
 
     res.status(200).json({ message: 'Rating updated successfully.', movie });

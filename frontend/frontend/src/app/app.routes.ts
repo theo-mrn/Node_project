@@ -9,12 +9,12 @@ import { StatusComponent } from './status/status.component';
 
 
 export const routes: Routes = [
-  { path: '', component: LandingComponent }, // Route de la landing page
-  { path: 'auth', component: AuthComponent }, // Page de connexion
-  { path: 'movies', component: MovieListComponent }, // Liste des films
-  { path: 'movies/:id', component: MovieDetailsComponent }, // Détails d'un film  
+  { path: '', component: LandingComponent }, 
+  { path: 'auth', component: AuthComponent }, 
+  { path: 'movies', component: MovieListComponent }, 
+  { path: 'movies/:id', component: MovieDetailsComponent }, 
   { path: 'add',        component: AddMovieComponent },
-  { path: 'movies/add', component: AddMovieComponent }, // Nouvelle route
+  { path: 'movies/add', component: AddMovieComponent }, 
   { path: 'status', component: StatusComponent },
 
 

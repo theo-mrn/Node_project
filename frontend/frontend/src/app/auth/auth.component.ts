@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Importer le Router
-import { CommonModule } from '@angular/common'; // Importer CommonModule
+import { Router } from '@angular/router'; 
+import { CommonModule } from '@angular/common'; 
 import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css'],
-  imports: [CommonModule] // Ajouter CommonModule aux imports
+  imports: [CommonModule]
 })
 export class AuthComponent {
   selectedTab: 'register' | 'login' = 'register'; // Onglet sélectionné
@@ -24,10 +24,9 @@ export class AuthComponent {
     password: '',
   };
 
-  message: string = ''; // Message pour afficher les résultats à l'utilisateur
-  isError: boolean = false; // Indique si le message est une erreur
-
-  constructor(private authService: AuthService, private router: Router) {} // Injecter le Router
+  message: string = '';
+  isError: boolean = false; 
+  constructor(private authService: AuthService, private router: Router) {} 
 
   updateField(
     form: 'register' | 'login',

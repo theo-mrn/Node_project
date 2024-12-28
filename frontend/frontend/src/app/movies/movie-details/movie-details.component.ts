@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
-import { AuthService } from '../../services/auth.service'; // Importez AuthService
+import { AuthService } from '../../services/auth.service'; 
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class MovieDetailsComponent implements OnInit {
-  movie: any = {}; // Détails du film
-  comments: any[] = []; // Liste des commentaires
-  newRating: number | null = null; // Nouvelle note
-  newComment: string = ''; // Nouveau commentaire
+  movie: any = {}; 
+  comments: any[] = []; 
+  newRating: number | null = null; 
+  newComment: string = ''; 
   editing: boolean = false; 
   isDirector: boolean = false;
 
@@ -40,7 +40,7 @@ export class MovieDetailsComponent implements OnInit {
   checkIfDirector(): void {
     this.authService.isDirector().subscribe({
       next: (response) => {
-        this.isDirector = response.isDirector; // Stocker le statut isDirector
+        this.isDirector = response.isDirector;
       },
       error: (err) => {
         console.error('Erreur lors de la vérification du rôle utilisateur :', err);
@@ -58,9 +58,9 @@ export class MovieDetailsComponent implements OnInit {
   }
   
   getRatingColor(rating: number | null): string {
-    if (!rating) return '#ccc'; // Gris si aucune note
-    if (rating >= 8) return '#4caf50'; // Vert pour les notes élevées
-    if (rating >= 5) return '#ffeb3b'; // Jaune pour les notes moyennes
+    if (!rating) return '#ccc'; 
+    if (rating >= 8) return '#4caf50';
+    if (rating >= 5) return '#ffeb3b'; 
     return '#f44336'; 
   }
 
@@ -106,7 +106,7 @@ export class MovieDetailsComponent implements OnInit {
       next: (response) => {
         console.log('Movie updated successfully:', response);
         this.movie = response;
-        this.editing = false; // Désactiver le mode édition
+        this.editing = false;
       },
       error: (err) => {
         console.error('Error updating movie:', err);
@@ -131,7 +131,7 @@ export class MovieDetailsComponent implements OnInit {
       this.movieService.rateMovie(this.movie.id, { userId: 1, rating: this.newRating }).subscribe({
         next: (response) => {
           console.log('Rating added successfully:', response);
-          this.movie.rating = response.avgRating; // Affiche la nouvelle moyenne
+          this.movie.rating = response.avgRating; 
         },
         error: (err) => {
           console.error('Error adding rating:', err);
@@ -156,15 +156,15 @@ export class MovieDetailsComponent implements OnInit {
     }
 
     const commentData = {
-      movieId: this.movie.id, // Vérifiez que this.movie.id est correctement défini
+      movieId: this.movie.id,
       content: this.newComment,
     };
 
     this.movieService.addComment(this.movie.id, commentData).subscribe({
       next: (response) => {
         console.log('Comment added successfully:', response);
-        this.comments.unshift(response); // Ajoute le commentaire en début de liste
-        this.newComment = ''; // Réinitialise le champ commentaire
+        this.comments.unshift(response); 
+        this.newComment = '';
       },
       error: (err) => {
         console.error('Error adding comment:', err);

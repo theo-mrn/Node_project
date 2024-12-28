@@ -6,7 +6,7 @@ class Comment extends Model {
   public movieId!: number;
   public content!: string;
   public userId!: number | null;
-  public username!: string | null; // Peut être null
+  public username!: string | null; 
 }
 
 Comment.init(
@@ -26,11 +26,11 @@ Comment.init(
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Peut être null
+      allowNull: true, 
     },
     username: {
       type: DataTypes.STRING,
-      allowNull: true, // Peut être null
+      allowNull: true,
     },
   },
   {

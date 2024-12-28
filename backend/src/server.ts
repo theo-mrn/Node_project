@@ -12,7 +12,7 @@ import { errorHandler } from './middleware/errorHandler';
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware global
+
 app.use(bodyParser.json());
 app.use(
   cors({
@@ -30,25 +30,21 @@ app.use('/movies', movieRoutes);
 app.use('/users', userRoutes);
 app.use('/movies', ratingRoutes);
 
-// Test de connexion à la base de données
 sequelize
   .authenticate()
   .then(() => console.log('Connected to PostgreSQL'))
   .catch((err: Error) => console.error('Unable to connect to the database:', err));
 
-// Synchronisation des tables (alter pour modifier la structure sans perdre de données)
 sequelize
-  .sync({ alter: true }) // Synchronise automatiquement les colonnes manquantes ou modifiées
+  .sync({ alter: true }) 
   .then(() => console.log('Database synced successfully'))
   .catch((err: Error) => console.error('Error syncing database:', err));
 
-// Middleware pour les erreurs 404 (routes inexistantes)
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Gestion des erreurs globales
 app.use(errorHandler);
 
-// Lancer le serveur
+
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

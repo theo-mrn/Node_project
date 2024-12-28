@@ -13,10 +13,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'movies', // Correspond au nom de la table des films
+          model: 'movies',
           key: 'id',
         },
-        onDelete: 'CASCADE', // Supprime les commentaires si le film est supprimé
+        onDelete: 'CASCADE',
       },
       content: {
         type: Sequelize.TEXT,

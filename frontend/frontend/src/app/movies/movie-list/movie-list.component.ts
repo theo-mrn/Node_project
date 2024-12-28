@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core'; // Pour OnInit
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'; // Pour HttpClient
-import { RouterModule, Router } from '@angular/router'; // Pour Router
-import { MovieService } from '../../services/movie.service'; // Pour MovieService
+import { HttpClientModule } from '@angular/common/http'; 
+import { RouterModule, Router } from '@angular/router';
+import { MovieService } from '../../services/movie.service'; 
 
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.scss'],
-  standalone: true, // Si votre projet utilise des composants standalone
-  imports: [CommonModule, HttpClientModule, RouterModule], // Modules nécessaires
+  standalone: true, 
+  imports: [CommonModule, HttpClientModule, RouterModule], 
 })
 
 
@@ -18,11 +18,11 @@ export class MovieListComponent implements OnInit {
   movies: any[] = [];
   filteredMovies: any[] = [];
   favorites: any[] = [];
-  favoriteMovies: any[] = []; // Films en favoris
+  favoriteMovies: any[] = []; 
   searchTerm: string = '';
-  suggestions: any[] = []; // Suggestions pour l'autocomplétion
-  showSuggestions: boolean = false; // Contrôle l'affichage des suggestions
-  showFavorites: boolean = false; // Affiche uniquement les films favoris
+  suggestions: any[] = []; 
+  showSuggestions: boolean = false; 
+  showFavorites: boolean = false; 
   errorMessage: string | null = null;
 
   constructor(private movieService: MovieService, private router: Router) {}
@@ -37,7 +37,7 @@ export class MovieListComponent implements OnInit {
       next: (data: any[]) => {
         this.movies = data;
         this.filteredMovies = data;
-        this.updateFavoriteMovies(); // Met à jour la liste des favoris
+        this.updateFavoriteMovies();
       },
       error: (err: any) => {
         console.error('Error fetching movies:', err);
@@ -49,12 +49,12 @@ export class MovieListComponent implements OnInit {
   toggleFavorite(movie: any): void {
     const index = this.favorites.findIndex((fav) => fav.id === movie.id);
     if (index > -1) {
-      this.favorites.splice(index, 1); // Supprime des favoris
+      this.favorites.splice(index, 1); 
     } else {
-      this.favorites.push(movie); // Ajoute aux favoris
+      this.favorites.push(movie);
     }
     this.saveFavorites();
-    this.updateFavoriteMovies(); // Met à jour les films favoris
+    this.updateFavoriteMovies(); 
   }
 
   isFavorite(movie: any): boolean {
@@ -96,26 +96,26 @@ export class MovieListComponent implements OnInit {
       this.suggestions = [];
     }
 
-    this.filterMovies(); // Filtre les films affichés
+    this.filterMovies();
   }
 
   selectSuggestion(suggestion: any): void {
     this.searchTerm = suggestion.series_title;
     const inputElement = document.querySelector('.search-input') as HTMLInputElement;
-    inputElement.value = this.searchTerm; // Met à jour visuellement le champ
-    this.showSuggestions = false; // Cache les suggestions
+    inputElement.value = this.searchTerm; 
+    this.showSuggestions = false;
     this.filterMovies();
   }
 
   hideSuggestionsWithDelay(): void {
     setTimeout(() => {
       this.showSuggestions = false;
-    }, 200); // Laisse un délai pour les clics
+    }, 200);
   }
 
   toggleShowFavorites(): void {
-    this.showFavorites = !this.showFavorites; // Bascule entre tous les films et les favoris
-    this.filterMovies(); // Refiltrer les films
+    this.showFavorites = !this.showFavorites; 
+    this.filterMovies(); 
   }
 
   updateFavoriteMovies(): void {

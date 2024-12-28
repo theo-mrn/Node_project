@@ -16,10 +16,9 @@ export const addRating = async (req: Request, res: Response): Promise<Response> 
       return res.status(400).json({ error: 'Rating must be between 1 and 20.' });
     }
 
-    // Ajouter la note
     await Rating.create({ movieId: Number(movieId), userId, rating });
 
-    // Calculer la moyenne des notes
+    // On calcule la moyenne des notes
     const averageRating = await Rating.findAll({
       where: { movieId: Number(movieId) },
       attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'avgRating']],
@@ -28,10 +27,10 @@ export const addRating = async (req: Request, res: Response): Promise<Response> 
 
     const avgRating = parseFloat(averageRating[0]['avgRating']).toFixed(2);
 
-    // Mettre à jour la moyenne dans la table "movies"
+    // On à jour la moyenne dans la table movies
     const movie = await Movie.findByPk(movieId);
     if (movie) {
-      movie.rating = parseFloat(avgRating); // Mise à jour de la moyenne
+      movie.rating = parseFloat(avgRating);
       await movie.save();
     }
 

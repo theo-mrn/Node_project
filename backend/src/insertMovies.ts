@@ -1,5 +1,5 @@
-import { sequelize } from './config/database'; // Configuration de la base de données
-import { Movie } from './models/movie'; // Modèle Sequelize
+import { sequelize } from './config/database'; 
+import { Movie } from './models/movie'; 
 import fs from 'fs';
 import csvParser from 'csv-parser';
 
@@ -28,7 +28,7 @@ const insertMovies = async () => {
     const results: MovieData[] = [];
 
     // Lire le fichier CSV
-    fs.createReadStream('imdb_top_1000.csv') // Assurez-vous que ce fichier est à la racine
+    fs.createReadStream('imdb_top_1000.csv')
       .pipe(csvParser())
       .on('data', (data: MovieData) => results.push(data))
       .on('end', async () => {
@@ -49,8 +49,8 @@ const insertMovies = async () => {
             star2: row.Star2,
             star3: row.Star3,
             star4: row.Star4,
-            no_of_votes: parseInt(row.No_of_Votes.replace(/,/g, '')) || null, // Supprime les virgules
-            gross: row.Gross ? parseInt(row.Gross.replace(/,/g, '')) : null, // Supprime les virgules
+            no_of_votes: parseInt(row.No_of_Votes.replace(/,/g, '')) || null, 
+            gross: row.Gross ? parseInt(row.Gross.replace(/,/g, '')) : null, 
           });
         }
         console.log('Movies successfully inserted!');

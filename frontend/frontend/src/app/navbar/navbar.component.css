@@ -9,7 +9,7 @@
   padding: 0;
   display: flex;
   gap: 1rem;
-  justify-content: space-between; /* Espace entre les éléments */
+  justify-content: space-between;
 }
 
 .navbar ul .left-buttons {
@@ -18,7 +18,7 @@
 }
 
 .navbar ul .right-button {
-  margin-left: auto; /* Pousse le bouton "Log out" à droite */
+  margin-left: auto;
 }
 
 .navbar ul li {
@@ -34,8 +34,8 @@
   font-size: 1rem;
   text-align: center;
   display: flex;
-  align-items: center; /* Centrer les éléments verticalement */
-  gap: 0.5rem; /* Espace entre le texte et l'icône */
+  align-items: center; 
+  gap: 0.5rem; 
 }
 
 .navbar ul li button:hover {

@@ -7,9 +7,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./status.component.css'],
 })
 export class StatusComponent implements OnInit {
-  isdirector: boolean = false; // Rôle actuel de l'utilisateur
-  message: string = ''; // Message de succès ou d'erreur
-  isError: boolean = false; // Indique si le message est une erreur
+  isdirector: boolean = false;
+  message: string = ''; 
+  isError: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -29,7 +29,7 @@ export class StatusComponent implements OnInit {
   }
 
   toggleDirectorStatus(): void {
-    const newStatus = !this.isdirector; // Inverse le statut actuel
+    const newStatus = !this.isdirector; 
     this.authService.updateSelfDirectorStatus(newStatus).subscribe({
       next: (response) => {
         this.isdirector = response.isdirector;

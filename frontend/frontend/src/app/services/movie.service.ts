@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class MovieService {
-  private baseUrl: string = 'http://localhost:3000'; // URL de base de votre API
+  private baseUrl: string = 'http://localhost:3000'; 
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class MovieService {
 
   // Méthode pour configurer les en-têtes
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token'); // Supposons que le jeton est stocké dans le localStorage
+    const token = localStorage.getItem('token'); 
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });

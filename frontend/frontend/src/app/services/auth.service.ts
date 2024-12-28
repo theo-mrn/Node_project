@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/users'; // URL du backend pour les utilisateurs
+  private apiUrl = 'http://localhost:3000/users'; 
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -23,13 +23,13 @@ export class AuthService {
 
   // Vérification si l'utilisateur est connecté
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token'); // Vérifie si un token est présent
+    return !!localStorage.getItem('token'); 
   }
 
   // Déconnexion de l'utilisateur
   logout(): void {
-    localStorage.removeItem('token'); // Supprime le token localement
-    this.router.navigate(['/auth']); // Redirige vers la page de connexion
+    localStorage.removeItem('token'); 
+    this.router.navigate(['/auth']); 
   }
 
   // Vérification du rôle (director ou non)

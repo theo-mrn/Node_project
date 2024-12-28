@@ -6,7 +6,7 @@ export class User extends Model {
   public username!: string;
   public email!: string;
   public password!: string;
-  public isdirector!: boolean; // Assurez-vous d'utiliser isdirector ici
+  public isdirector!: boolean; 
 }
 
 User.init(
@@ -29,7 +29,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    isdirector: { // Utilisation cohérente de isdirector
+    isdirector: { 
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,

@@ -19,7 +19,7 @@ export class Movie extends Model {
   public gross!: number | null;
   public overview!: string | null;
   public poster_link!: string | null;
-  public rating!: number | null; // Nouvelle colonne pour la note
+  public rating!: number | null; 
 }
 
 Movie.init(
@@ -94,7 +94,7 @@ Movie.init(
       allowNull: true,
     },
     rating: {
-      type: DataTypes.FLOAT, // Colonne pour la moyenne des notes
+      type: DataTypes.FLOAT, 
       allowNull: true,
     },
     createdAt: {
