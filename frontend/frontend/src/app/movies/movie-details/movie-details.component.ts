@@ -33,6 +33,22 @@ export class MovieDetailsComponent implements OnInit {
       console.error('Invalid movie ID');
     }
   }
+  goBack(): void {
+    this.router.navigate(['/movies']);
+  }
+
+
+  getRatingWidth(rating: number | null): number {
+    return rating ? (rating / 10) * 100 : 0;
+  }
+  
+  getRatingColor(rating: number | null): string {
+    if (!rating) return '#ccc'; // Gris si aucune note
+    if (rating >= 8) return '#4caf50'; // Vert pour les notes élevées
+    if (rating >= 5) return '#ffeb3b'; // Jaune pour les notes moyennes
+    return '#f44336'; 
+  }
+
 
   // Charger les détails du film
   loadMovieDetails(movieId: number): void {
@@ -88,10 +104,10 @@ export class MovieDetailsComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const value = Number(input.value);
 
-    if (value >= 1 && value <= 20) {
+    if (value >= 0 && value <= 10) {
       this.newRating = value;
     } else {
-      alert('Rating must be between 1 and 20');
+      alert('Rating must be between 1 and 10');
     }
   }
 

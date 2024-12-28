@@ -1,82 +1,133 @@
-<div class="movie-details">
-  <h2 *ngIf="!editing">{{ movie?.series_title }}</h2>
-  <input
-    *ngIf="editing"
-    type="text"
-    [value]="movie.series_title"
-    (input)="updateField('series_title', $event)"
-    placeholder="Enter movie title"
-  />
+<div class="details-container">
+  <div class="flex-container">
+    <div class="poster-container">
+      <img
+        [src]="movie.poster_link"
+        alt="Poster of {{ movie.series_title }}"
+        class="movie-poster"
+      />
+    </div>
+    <div class="info-container">
+      <h2 *ngIf="!editing" class="movie-title">{{ movie?.series_title }}</h2>
+      <input
+        *ngIf="editing"
+        type="text"
+        [value]="movie.series_title"
+        (input)="updateField('series_title', $event)"
+        placeholder="Enter movie title"
+        class="movie-input-title"
+      />
 
-  <p><strong>Year:</strong>
-    <span *ngIf="!editing">{{ movie?.released_year }}</span>
-    <input
-      *ngIf="editing"
-      type="number"
-      [value]="movie.released_year"
-      (input)="updateField('released_year', $event)"
-      placeholder="Enter release year"
-    />
-  </p>
+      <div class="meta-row">
+        <p>
+          <strong>Year:</strong>
+          <span *ngIf="!editing">{{ movie?.released_year }}</span>
+          <input
+            *ngIf="editing"
+            type="number"
+            [value]="movie.released_year"
+            (input)="updateField('released_year', $event)"
+            placeholder="Enter release year"
+            class="movie-input"
+          />
+        </p>
+        <p>
+          <strong>Runtime:</strong> {{ movie?.runtime }} minutes
+        </p>
+        <p>
+          <strong>Genre:</strong>
+          <span *ngIf="!editing">{{ movie?.genre }}</span>
+          <input
+            *ngIf="editing"
+            type="text"
+            [value]="movie.genre"
+            (input)="updateField('genre', $event)"
+            placeholder="Enter genre"
+            class="movie-input"
+          />
+        </p>
+      </div>
 
-  <p><strong>Genre:</strong>
-    <span *ngIf="!editing">{{ movie?.genre }}</span>
-    <input
-      *ngIf="editing"
-      type="text"
-      [value]="movie.genre"
-      (input)="updateField('genre', $event)"
-      placeholder="Enter genre"
-    />
-  </p>
+      <p>
+        <strong>Director:</strong>
+        <span *ngIf="!editing">{{ movie?.director }}</span>
+        <input
+          *ngIf="editing"
+          type="text"
+          [value]="movie.director"
+          (input)="updateField('director', $event)"
+          placeholder="Enter director"
+          class="movie-input"
+        />
+      </p>
 
-  <p><strong>Director:</strong>
-    <span *ngIf="!editing">{{ movie?.director }}</span>
-    <input
-      *ngIf="editing"
-      type="text"
-      [value]="movie.director"
-      (input)="updateField('director', $event)"
-      placeholder="Enter director"
-    />
-  </p>
+      <div>
+        <h2 class="text-xl font-semibold mb-2">Stars:</h2>
+        <ul class="movie-stars">
+          <li>{{ movie?.star1 }}</li>
+          <li>{{ movie?.star2 }}</li>
+          <li>{{ movie?.star3 }}</li>
+          <li>{{ movie?.star4 }}</li>
+        </ul>
+      </div>
 
-  <p><strong>Average Rating:</strong> {{ movie.rating || 'No ratings yet' }}</p>
+      <div class="ratings-section">
+        <div class="rating-block">
+          <h3 class="font-semibold mb-1">IMDb Rating</h3>
+          <div class="rating-bar">
+            <div
+              class="rating-fill"
+              [style.width]="getRatingWidth(movie.imdb_rating) + '%'"
+              [style.background-color]="getRatingColor(movie.imdb_rating)"
+            ></div>
+            <span class="rating-score">{{ movie.imdb_rating }}</span>
+          </div>
+        </div>
+        <div class="rating-block">
+          <h3 class="font-semibold mb-1">User Rating</h3>
+          <div class="rating-bar">
+            <div
+              class="rating-fill"
+              [style.width]="getRatingWidth(movie.rating) + '%'"
+              [style.background-color]="getRatingColor(movie.rating)"
+            ></div>
+            <span class="rating-score">{{ movie.rating || 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
 
-  <button *ngIf="!editing" (click)="toggleEditMode()">Edit Movie</button>
-  <button *ngIf="editing" (click)="saveChanges()">Save Changes</button>
-  <button *ngIf="editing" (click)="toggleEditMode()">Cancel</button>
+      <div class="rate-movie-section">
+        <h4>My Score</h4>
+        <input
+          id="rating"
+          type="number"
+          min="0"
+          max="10"
+          placeholder="Enter your rating (0-10)"
+          (input)="onRatingInput($event)"
+        />
+        <button (click)="rateMovie()">Submit My Rating</button>
+      </div>
 
-  <!-- Formulaire pour noter le film -->
-  <label for="rating">Rate this movie:</label>
-  <input
-    id="rating"
-    type="number"
-    min="1"
-    max="20"
-    placeholder="Enter rating between 1 and 20"
-    (input)="onRatingInput($event)"
-  />
-  <button (click)="rateMovie()">Submit Rating</button>
-
-  <!-- Bouton pour supprimer le film -->
-  <button (click)="deleteMovie()" class="delete-button">Delete Movie</button>
-</div>
-
-<!-- Section des commentaires -->
-<div class="comments-section">
-  <h3>Comments</h3>
-
-  <!-- Liste des commentaires -->
-  <div class="comment" *ngFor="let comment of comments">
-    <p><strong>{{ comment.username || 'Anonymous' }}</strong>: {{ comment.content }}</p>
+      <div class="action-buttons">
+        <button *ngIf="!editing" (click)="toggleEditMode()">Edit Movie</button>
+        <button *ngIf="editing" (click)="saveChanges()">Save Changes</button>
+        <button *ngIf="editing" (click)="toggleEditMode()">Cancel</button>
+        <button (click)="deleteMovie()" class="delete-button">Delete Movie</button>
+      </div>
+    </div>
   </div>
+  <div class="comments-section">
+    <h3>Comments</h3>
+    <div *ngFor="let comment of comments">
+      <p><strong>{{ comment.username || 'Anonymous' }}</strong>: {{ comment.content }}</p>
+    </div>
 
-  <!-- Formulaire pour ajouter un commentaire -->
-  <textarea
-    placeholder="Write your comment here..."
-    (input)="onCommentInput($event)"
-    [value]="newComment"
-  ></textarea>
-  <button (click)="addComment()">Submit Comment</button>
+    <textarea
+      placeholder="Write your comment here..."
+      (input)="onCommentInput($event)"
+      [value]="newComment"
+    ></textarea>
+    <button (click)="addComment()">Submit Comment</button>
+  </div>
 </div>

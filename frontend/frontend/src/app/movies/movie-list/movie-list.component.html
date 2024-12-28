@@ -1,17 +1,62 @@
+<div class="toolbar">
+  <button (click)="toggleShowFavorites()" class="toggle-favorites-btn">
+    {{ showFavorites ? 'Show All Movies' : 'Show Favorites' }}
+  </button>
+</div>
+
+<div class="search-container">
+  <input
+    type="text"
+    placeholder="Search for a movie..."
+    class="search-input"
+    (input)="onSearch($event)"
+    (focus)="showSuggestions = true"
+    (blur)="hideSuggestionsWithDelay()"
+  />
+
+  <ul class="suggestions-list" *ngIf="showSuggestions && suggestions.length">
+    <li
+      *ngFor="let suggestion of suggestions"
+      (click)="selectSuggestion(suggestion)"
+      class="suggestion-item"
+    >
+      {{ suggestion.series_title }}
+    </li>
+  </ul>
+</div>
+
 <div class="movie-grid">
-  <div class="movie-card" *ngFor="let movie of movies">
+  <div
+    class="movie-card"
+    *ngFor="let movie of filteredMovies"
+    (click)="goToMovieDetails(movie.id)"
+  >
+    <div
+      class="favorite-icon"
+      (click)="toggleFavorite(movie); $event.stopPropagation()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        [attr.fill]="isFavorite(movie) ? 'red' : 'none'"
+        stroke="red"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-heart"
+      >
+        <path
+          d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+        />
+      </svg>
+    </div>
     <img
       [src]="movie.poster_link"
       alt="Poster of {{ movie.series_title }}"
       class="movie-poster"
     />
     <h3 class="movie-title">{{ movie.series_title }}</h3>
-    <button
-      class="favorite-btn"
-      (click)="toggleFavorite(movie)"
-      [class.favorited]="isFavorite(movie)"
-    >
-      {{ isFavorite(movie) ? 'Unfavorite' : 'Add to Favorites' }}
-    </button>
   </div>
 </div>

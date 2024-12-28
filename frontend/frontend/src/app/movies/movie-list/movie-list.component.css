@@ -6,12 +6,12 @@
 }
 
 .movie-card {
+  position: relative;
   background: #ffffff;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   text-align: center;
-  cursor: pointer;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -33,23 +33,19 @@
   color: #333;
 }
 
-.favorite-btn {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
+.favorite-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s, color 0.3s;
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, background-color 0.2s;
 }
 
-.favorite-btn.favorited {
-  background-color: #ff4757;
-  color: white;
-}
-
-.favorite-btn:hover {
-  background-color: #e74c3c;
-  color: white;
+.favorite-icon:hover {
+  transform: scale(1.2);
+  background-color: #ffe6e6;
 }
