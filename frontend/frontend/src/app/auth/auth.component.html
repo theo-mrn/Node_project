@@ -1,66 +1,89 @@
 <div class="auth-container">
-  <h2>Register</h2>
-  <form>
-    <label for="username">Username:</label>
-    <input
-      id="username"
-      name="username"
-      type="text"
-      (input)="updateField('register', 'username', $event)"
-      required
-    />
+  <div class="tabs">
+    <div
+      class="tab"
+      [class.active]="selectedTab === 'register'"
+      (click)="selectTab('register')"
+    >
+      Register
+    </div>
+    <div
+      class="tab"
+      [class.active]="selectedTab === 'login'"
+      (click)="selectTab('login')"
+    >
+      Login
+    </div>
+  </div>
 
-    <label for="email">Email:</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      (input)="updateField('register', 'email', $event)"
-      required
-    />
+  <div *ngIf="selectedTab === 'register'">
+    <h2>Register</h2>
+    <form>
+      <label for="username">Username:</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        (input)="updateField('register', 'username', $event)"
+        required
+      />
 
-    <label for="password">Password:</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      (input)="updateField('register', 'password', $event)"
-      required
-    />
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        (input)="updateField('register', 'email', $event)"
+        required
+      />
 
-    <label for="isdirector">Is Director:</label>
-    <input
-      id="isdirector"
-      name="isdirector"
-      type="checkbox"
-      (change)="updateField('register', 'isdirector', $event)"
-    />
+      <label for="password">Password:</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        (input)="updateField('register', 'password', $event)"
+        required
+      />
 
-    <button type="button" (click)="onRegister()">Register</button>
-  </form>
+      <label for="isdirector">Is Director:</label>
+      <label class="switch">
+        <input
+          id="isdirector"
+          name="isdirector"
+          type="checkbox"
+          (change)="updateField('register', 'isdirector', $event)"
+        />
+        <span class="slider"></span>
+      </label>
 
-  <h2>Login</h2>
-  <form>
-    <label for="login-email">Email:</label>
-    <input
-      id="login-email"
-      type="email"
-      (input)="updateField('login', 'email', $event)"
-      required
-    />
+      <button type="button" (click)="onRegister()">Register</button>
+    </form>
+  </div>
 
-    <label for="login-password">Password:</label>
-    <input
-      id="login-password"
-      type="password"
-      (input)="updateField('login', 'password', $event)"
-      required
-    />
+  <div *ngIf="selectedTab === 'login'">
+    <h2>Login</h2>
+    <form>
+      <label for="login-email">Email:</label>
+      <input
+        id="login-email"
+        type="email"
+        (input)="updateField('login', 'email', $event)"
+        required
+      />
 
-    <button type="button" (click)="onLogin()">Login</button>
-  </form>
+      <label for="login-password">Password:</label>
+      <input
+        id="login-password"
+        type="password"
+        (input)="updateField('login', 'password', $event)"
+        required
+      />
 
-  <!-- Message visuel -->
+      <button type="button" (click)="onLogin()">Login</button>
+    </form>
+  </div>
+
   <div class="message" [class.error]="isError" [class.success]="!isError">
     {{ message }}
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
+import { AuthService } from '../../services/auth.service'; // Importez AuthService
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,11 +16,13 @@ export class MovieDetailsComponent implements OnInit {
   comments: any[] = []; // Liste des commentaires
   newRating: number | null = null; // Nouvelle note
   newComment: string = ''; // Nouveau commentaire
-  editing: boolean = false; // Indique si le mode édition est activé
+  editing: boolean = false; 
+  isDirector: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService,
+    private authService: AuthService, 
     private router: Router
   ) {}
 
@@ -32,11 +35,23 @@ export class MovieDetailsComponent implements OnInit {
     } else {
       console.error('Invalid movie ID');
     }
+    this.checkIfDirector(); 
   }
+  checkIfDirector(): void {
+    this.authService.isDirector().subscribe({
+      next: (response) => {
+        this.isDirector = response.isDirector; // Stocker le statut isDirector
+      },
+      error: (err) => {
+        console.error('Erreur lors de la vérification du rôle utilisateur :', err);
+      },
+    });
+  }
+
+
   goBack(): void {
     this.router.navigate(['/movies']);
   }
-
 
   getRatingWidth(rating: number | null): number {
     return rating ? (rating / 10) * 100 : 0;

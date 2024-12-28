@@ -11,6 +11,9 @@ export class MovieService {
 
   constructor(private http: HttpClient) {}
 
+
+  
+
   // Méthode pour configurer les en-têtes
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token'); // Supposons que le jeton est stocké dans le localStorage

@@ -85,7 +85,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
   try {
     const { username, email, password, isdirector } = req.body;
 
-    // Vérification si l'email est déjà utilisé
+    // Vérifiez si l'email est déjà utilisé
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       res.status(400).json({ error: 'Email already in use.' });
@@ -103,8 +103,16 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
       isdirector: isdirector || false, // Valeur par défaut si non spécifiée
     });
 
+    // Génération du token JWT
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email, isDirector: newUser.isdirector },
+      'your-secret-key', // Utilisez votre clé secrète
+      { expiresIn: '1h' } // Durée de validité du token
+    );
+
     res.status(201).json({
       message: 'User registered successfully.',
+      token, // Inclure le token dans la réponse
       user: {
         id: newUser.id,
         username: newUser.username,
@@ -135,11 +143,11 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Incluez `isDirector` dans le token.
+  
     const token = jwt.sign(
       { id: user.id, email: user.email, isdirector: user.isdirector },
       'your-secret-key',
-      { expiresIn: '1h' }
+      { expiresIn: '12h' }
     );
 
     res.status(200).json({ token });
@@ -147,6 +155,9 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ error: (error as Error).message });
   }
 };
+
+
+
 
 
 export const updateDirectorStatus = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
