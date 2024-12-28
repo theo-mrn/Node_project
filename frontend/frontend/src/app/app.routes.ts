@@ -5,6 +5,7 @@ import { MovieListComponent } from './movies/movie-list/movie-list.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { AddMovieComponent } from './movies/add-movie/add-movie.component';
 import { StatusComponent } from './status/status.component';
+import { TopRatedMoviesComponent } from './charts/top-rated-movies/top-rated-movies.component'; // Import du composant
 
 
 
@@ -16,7 +17,7 @@ export const routes: Routes = [
   { path: 'add',        component: AddMovieComponent },
   { path: 'movies/add', component: AddMovieComponent }, 
   { path: 'status', component: StatusComponent },
-
+  { path: 'top-rated-movies', component: TopRatedMoviesComponent },
 
 
   

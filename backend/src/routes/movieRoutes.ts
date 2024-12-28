@@ -9,9 +9,12 @@ import {
 } from '../controllers/movieController';
 import { addComment, getCommentsByMovie } from '../controllers/commentController';
 import { authenticateToken } from '../middleware/authMiddleware';
+import { getTopRatedMovies } from '../controllers/movieController';
+
 
 const router = Router();
 
+router.get('/top-rated', getTopRatedMovies);
 router.get('/', authenticateToken, getMovies);
 router.get('/:id', authenticateToken, getMovieById);
 router.post('/', authenticateToken, createMovie);

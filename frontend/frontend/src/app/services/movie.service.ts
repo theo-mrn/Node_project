@@ -22,6 +22,14 @@ export class MovieService {
     });
   }
 
+
+  getTopRatedMovies(): Observable<{ series_title: string; rating: number }[]> {
+    return this.http
+      .get<{ series_title: string; rating: number }[]>(`${this.baseUrl}/movies/top-rated`, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+  
+
   // Gestion des erreurs
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('An error occurred:', error);

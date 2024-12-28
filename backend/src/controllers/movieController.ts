@@ -58,6 +58,21 @@ export const deleteMovie = async (req: AuthenticatedRequest, res: Response): Pro
   }
 };
 
+export const getTopRatedMovies = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const topMovies = await Movie.findAll({
+      order: [['rating', 'ASC']],
+      limit: 5,
+      attributes: ['series_title', 'rating'], 
+    });
+
+    res.status(200).json(topMovies);
+  } catch (error) {
+    console.error('Error fetching top-rated movies:', error);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+};
+
 
 export const rateMovie = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
