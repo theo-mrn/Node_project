@@ -3,6 +3,11 @@
 
 Movies project with Angular / Node.js
 
+
+This project is a movie management application built with Angular for the frontend and Node.js for the backend. It allows users to explore a list of movies, view detailed information about each film, and interact through features like adding ratings, posting comments, and managing favorite movies. The application supports CRUD operations for movies, users, and comments, offering role-based permissions to update or delete content. Additionally, it provides a dedicated page for top-rated movies using Highcharts and includes functionalities like search with autocompletion and user authentication.
+
+
+
 ## To Start the Project:
 
 ### Backend:  
