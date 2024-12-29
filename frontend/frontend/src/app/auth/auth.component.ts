@@ -24,6 +24,11 @@ export class AuthComponent {
     password: '',
   };
 
+  ngOnInit(): void {
+    this.authService.initializeGoogleSignIn();
+    
+  }
+
   message: string = '';
   isError: boolean = false; 
   constructor(private authService: AuthService, private router: Router) {} 
@@ -51,6 +56,8 @@ export class AuthComponent {
   selectTab(tab: 'register' | 'login'): void {
     this.selectedTab = tab;
   }
+
+  
 
   onRegister(): void {
     this.authService.register(this.registerData).subscribe({

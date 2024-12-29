@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+
 import { authenticateToken, AuthenticatedRequest } from '../middleware/authenticateToken';
 import {
   getUsers,
@@ -10,6 +11,7 @@ import {
   loginUser,
   updateSelfDirectorStatus, 
 } from '../controllers/userController';
+import { googleLogin } from '../controllers/userController';
 
 const router = Router();
 
@@ -34,6 +36,7 @@ router.get('/', getUsers);
 router.post('/', createUser);                  
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);             
+router.post('/google-login', googleLogin);
 
 
 export default router;

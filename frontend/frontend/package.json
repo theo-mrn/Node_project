@@ -22,6 +22,7 @@
     "ag-grid-angular": "^30.0.3",
     "ag-grid-community": "^30.0.3",
     "angular-highcharts": "^17.0.1",
+    "google-auth-library": "^9.15.0",
     "highcharts": "^12.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

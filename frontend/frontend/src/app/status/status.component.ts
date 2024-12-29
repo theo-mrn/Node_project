@@ -33,11 +33,12 @@ export class StatusComponent implements OnInit {
     this.authService.updateSelfDirectorStatus(newStatus).subscribe({
       next: (response) => {
         this.isdirector = response.isdirector;
-        this.message = `Votre rôle a été mis à jour avec succès.`;
+        this.message = `role updated.`;
         this.isError = false;
+        window.location.reload();
       },
       error: (err) => {
-        this.message = 'Erreur lors de la mise à jour de votre rôle.';
+        this.message = 'Erreur';
         this.isError = true;
         console.error(err);
       },

@@ -3,10 +3,13 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../models/user';
 import { AuthenticatedRequest } from '../interfaces/AuthenticatedRequest';
-import { QueryTypes } from 'sequelize'; // Importation directe de QueryTypes
+import { QueryTypes } from 'sequelize'; 
 import { sequelize } from '../config/database';
+import { OAuth2Client } from 'google-auth-library';
 
 
+
+const client = new OAuth2Client('294130312954-h4fljdvi8o7gklofrmpueismo0ujifch.apps.googleusercontent.com'); 
 
 // Récupérer tous les utilisateurs
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
@@ -187,5 +190,50 @@ export const updateSelfDirectorStatus = async (req: AuthenticatedRequest, res: R
   } catch (error) {
     console.error('Erreur dans updateSelfDirectorStatus :', error);
     res.status(500).json({ error: 'Erreur interne du serveur.' });
+  }
+};
+
+
+export const googleLogin = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { token } = req.body;
+
+    // Vérification du token Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: 'YOUR_GOOGLE_CLIENT_ID',
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload || !payload.email) {
+      res.status(400).json({ error: 'Invalid Google token' });
+      return;
+    }
+
+    // Vérifiez si l'utilisateur existe déjà
+    let user = await User.findOne({ where: { email: payload.email } });
+
+    if (!user) {
+      // Créez un nouvel utilisateur si non existant
+      user = await User.create({
+        username: payload.name || 'Google User',
+        email: payload.email,
+        password: '', // Pas de mot de passe pour les utilisateurs Google
+        isdirector: false,
+      });
+    }
+
+    // Générez un token JWT
+    const jwtToken = jwt.sign(
+      { id: user.id, email: user.email, isdirector: user.isdirector },
+      'your-secret-key',
+      { expiresIn: '12h' }
+    );
+
+    res.status(200).json({ token: jwtToken });
+  } catch (error) {
+    console.error('Error during Google login:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
