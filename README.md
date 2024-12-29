@@ -91,3 +91,34 @@ ng serve
 ## Notes:
 
 - **OAuth2 Attempt**: Initial attempt to implement OAuth2 failed due to issues obtaining the token.  
+
+---
+
+##  **SQL**: 
+
+1. **Configuration utilisée** :
+
+- NAME: postgres
+- USER:postgres
+- PASSWORD: postgres
+- host : localhost , PORT : 5432
+
+2. ** utilisation du fichier kaggle pour la data
+
+```bash
+https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows
+```
+
+
+3. **TABLES** : 
+- USERS
+- comments
+- movies
+- ratings
+
+4. **Pour la creation de tables : cf ficiher backend/creationstables.sql**
+
+5. **insertion des données dans les tables**:
+
+fichier :  `backend/src/insertMovies.ts` 
+
