@@ -96,14 +96,14 @@ ng serve
 
 ##  **SQL**: 
 
-1. **Configuration utilisée** :
+1. **Configuration Used** :
 
 - NAME: postgres
 - USER:postgres
 - PASSWORD: postgres
 - host : localhost , PORT : 5432
 
-2. ** utilisation du fichier kaggle pour la data
+2. **Using the Kaggle File for Data:**
 
 ```bash
 https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows
@@ -116,9 +116,13 @@ https://www.kaggle.com/datasets/harshitshankhdhar/imdb-dataset-of-top-1000-movie
 - movies
 - ratings
 
-4. **Pour la creation de tables : cf ficiher backend/creationstables.sql**
+4. **For Table Creation**: 
 
-5. **insertion des données dans les tables**:
+file : `backend/creationstables.sql`
+
+5. **Data Insertion into Tables**:
 
 fichier :  `backend/src/insertMovies.ts` 
+
+
 
