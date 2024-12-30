@@ -134,8 +134,8 @@ fichier :  `backend/src/insertMovies.ts`
 2. Favorites
 ![image12 3](https://github.com/user-attachments/assets/94a15835-505c-4b72-8e28-3931f99accb5)
 
-.3 Highchart
+.3 Movies Infos
 ![image12 5](https://github.com/user-attachments/assets/c8a2b33c-05f0-43df-afbc-6ebaf2fcf3fd)
 
-.4 Movies Infos
+.4 Highchart
 ![image12 4](https://github.com/user-attachments/assets/69097da0-6a2b-46ec-968f-bdcbc6622235)
