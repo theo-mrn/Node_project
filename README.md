@@ -90,7 +90,9 @@ ng serve
 
 ## Notes:
 
-- **OAuth2 Attempt**: Initial attempt to implement OAuth2 failed due to issues obtaining the token.  
+- **OAuth2 Attempt**: Initial attempt to implement OAuth2 failed due to issues obtaining the token.
+- **ag-grid Attempt**: Initial attempt to implement ag-grid but blank pages.  
+  
 
 ---
 
@@ -139,3 +141,6 @@ fichier :  `backend/src/insertMovies.ts`
 
 .4 Highchart
 ![image12 4](https://github.com/user-attachments/assets/69097da0-6a2b-46ec-968f-bdcbc6622235)
+
+.5 SWagger
+![image12 6](https://github.com/user-attachments/assets/aeced6fa-4b1d-469f-a4e1-c846a1879eb0)
